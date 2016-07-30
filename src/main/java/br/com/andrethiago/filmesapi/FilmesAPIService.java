@@ -39,7 +39,7 @@ class FilmesAPIService {
 		Filme grandeAposta = new Filme(3L, "A Grande Aposta", "Quatro conhecedores do mundo financeiro preveem o colapso da bolha da habitação dos anos 2000...");
 		grandeAposta.addAtor(new Ator[] {christianBale, steveCarell});
 		
-		Filme darkKnight = new Filme(3L, "Batman, O Cavaleiro das Trevas", "Batman enfrenta seu pior inimigo: o Coringa.");
+		Filme darkKnight = new Filme(4L, "Batman, O Cavaleiro das Trevas", "Batman enfrenta seu pior inimigo: o Coringa.");
 		darkKnight.addAtor(christianBale);
 		
 		filmes.add(grandeMuralha);
