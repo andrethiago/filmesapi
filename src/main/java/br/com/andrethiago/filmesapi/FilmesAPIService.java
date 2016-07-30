@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import br.com.andrethiago.filmesapi.exception.ObjetoNaoEncontradoExcepion;
@@ -69,5 +70,25 @@ class FilmesAPIService {
 				findAny().
 				orElse(null);
 	}
+
+	public void novo(Ator novo) {
+		if(StringUtils.isEmpty(novo.getNome())) {
+			throw new IllegalArgumentException("É necessário informar o nome do ator.");
+		}
+		
+		Long quantidade = (long) atores.size();
+		novo.setId(quantidade  + 1);
+		
+		atores.add(novo);
+	}
+	
+	public void apagarAtor(Long id) {
+		Ator ator = ator(id);
+		if(ator != null) {
+			atores.remove(ator);
+		}
+		throw new ObjetoNaoEncontradoExcepion("Não é possível remover o ator pois ele não existe.");
+	}
+
 
 }
