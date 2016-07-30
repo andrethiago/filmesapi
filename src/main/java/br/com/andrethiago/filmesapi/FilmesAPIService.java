@@ -62,5 +62,12 @@ class FilmesAPIService {
 				findAny().
 				orElse(null);
 	}
+	
+	public Ator ator(Long id) {
+		return atores.stream().
+				filter(filme -> id.equals(filme.getId())).
+				findAny().
+				orElse(null);
+	}
 
 }
