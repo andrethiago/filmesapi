@@ -1,6 +1,9 @@
 package br.com.andrethiago.filmesapi;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,8 +26,14 @@ public class FilmesAPIController {
 	private FilmesAPIService service;
 
 	@RequestMapping(value = "/filmes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<List<Filme>> filmes() {
-		return new ResponseEntity<>(service.todosFilmes(), HttpStatus.OK);
+	public ResponseEntity<Map<String, Object>> filmes() {
+		Map<String, Object> retorno = new HashMap<>();
+		//retorno.put("dados", Collections.emptyList());
+		//retorno.put("dados", null);
+		List<Filme> todosFilmes = service.todosFilmes();
+		retorno.put("dados", todosFilmes);
+		retorno.put("quantidade", todosFilmes.size());
+		return new ResponseEntity<>(retorno, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/filmes/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
