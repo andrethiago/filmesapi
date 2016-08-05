@@ -1,17 +1,12 @@
 package br.com.andrethiago.filmesapi.exception;
 
-import java.util.function.Supplier;
+public class ObjetoNaoEncontradoExcepion extends RuntimeException {
 
-public class ObjetoNaoEncontradoExcepion extends RuntimeException implements Supplier {
+	private static final long serialVersionUID = -6888000378980720246L;
 
 	public ObjetoNaoEncontradoExcepion(String mensagem) {
 		super(mensagem);
 	}
 
-	@Override
-	public Object get() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

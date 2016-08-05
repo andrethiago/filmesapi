@@ -12,6 +12,8 @@ public class Filme {
 	private List<Ator> atores = new ArrayList<>();
 
 	private String sinopse;
+	
+	public Filme() {}
 
 	public Filme(Long id, String nome, String sinopse) {
 		this.id = id;

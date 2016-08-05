@@ -1,6 +1,5 @@
 package br.com.andrethiago.filmesapi;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,8 +27,6 @@ public class FilmesAPIController {
 	@RequestMapping(value = "/filmes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Map<String, Object>> filmes() {
 		Map<String, Object> retorno = new HashMap<>();
-		//retorno.put("dados", Collections.emptyList());
-		//retorno.put("dados", null);
 		List<Filme> todosFilmes = service.todosFilmes();
 		retorno.put("dados", todosFilmes);
 		retorno.put("quantidade", todosFilmes.size());
