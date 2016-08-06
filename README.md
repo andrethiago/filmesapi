@@ -1,5 +1,5 @@
 # filmesapi
-Projeto com exemplos de testes com REST-assured utilizados no blog Code a Test (http://www.codeatest.com/testando-microservices-rest-assured).
+Projeto com exemplos de testes com REST-assured utilizados no blog Code a Test (http://www.codeatest.com/microservices-testando-rest-assured/).
 
 ## Tecnologias
 * Java 8
