@@ -1,6 +1,9 @@
 package br.com.andrethiago.filmesapi;
 
+import static io.restassured.RestAssured.delete;
 import static io.restassured.RestAssured.get;
+import static io.restassured.RestAssured.given;
+import static io.restassured.http.ContentType.JSON;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.everyItem;
@@ -9,6 +12,7 @@ import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -75,6 +79,32 @@ public class FilmesAPITest {
 	@Test
 	public void filmePorIdInvalidoRetorna404() {
 		get("/filmesapi/filmes/100").then().statusCode(404);
+	}
+	
+	@Test
+	public void gravaNovoAtor() {
+		given().
+			contentType(JSON).
+			body("{\"nome\" : \"Robert De Niro\"}").
+			put("/filmesapi/atores").
+			then().
+			statusCode(201).
+			and().
+			body(equalTo("Ator criado com sucesso."));
+	}
+	
+	@Test
+	public void apagaAtorExistente() {
+		Integer atoresAntes = get("/filmesapi/atores").then().extract().response().path("quantidade");
+		
+		delete("/filmesapi/atores/{id}", 1).
+		then().
+		statusCode(200).
+		and().
+		body(equalTo("Ator removido com sucesso."));
+		
+		Integer atoresDepois = get("/filmesapi/atores").then().extract().response().path("quantidade");
+		assertTrue(atoresDepois == Integer.valueOf(atoresAntes - 1));
 	}
 
 }

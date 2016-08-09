@@ -86,8 +86,9 @@ class FilmesAPIService {
 		Ator ator = ator(id);
 		if(ator != null) {
 			atores.remove(ator);
+		} else {
+			throw new ObjetoNaoEncontradoExcepion("Não é possível remover o ator pois ele não existe.");
 		}
-		throw new ObjetoNaoEncontradoExcepion("Não é possível remover o ator pois ele não existe.");
 	}
 
 

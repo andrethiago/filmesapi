@@ -44,8 +44,14 @@ public class FilmesAPIController {
 	}
 
 	@RequestMapping(value = "/atores", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<List<Ator>> atores() {
-		return new ResponseEntity<>(service.todosAtores(), HttpStatus.OK);
+	public ResponseEntity<Map<String, Object>> atores() {
+		
+		Map<String, Object> retorno = new HashMap<>();
+		List<Ator> todosAtores = service.todosAtores();
+		retorno.put("dados", todosAtores);
+		retorno.put("quantidade", todosAtores.size());
+		
+		return new ResponseEntity<>(retorno, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/atores/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -59,7 +65,7 @@ public class FilmesAPIController {
 	}
 
 	@RequestMapping(value = "/atores/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<String> apagarAtor(Long id) {
+	public ResponseEntity<String> apagarAtor(@PathVariable Long id) {
 		try {
 			service.apagarAtor(id);
 			return new ResponseEntity<>("Ator removido com sucesso.", HttpStatus.OK);
