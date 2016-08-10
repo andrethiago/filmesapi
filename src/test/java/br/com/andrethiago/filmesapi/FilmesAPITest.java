@@ -1,5 +1,6 @@
 package br.com.andrethiago.filmesapi;
 
+import static io.restassured.RestAssured.basic;
 import static io.restassured.RestAssured.delete;
 import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
@@ -16,22 +17,28 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import br.com.andrethiago.filmesapi.model.Filme;
-import io.restassured.http.ContentType;
+import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
 public class FilmesAPITest {
+	
+	@Before
+	public void configuraAutenticacao() {
+		RestAssured.authentication = basic("joao", "123456");
+	}
 
 	@Test
 	public void todosFilmesVerificaCabecalhosResposta() {
-
+		
 		get("/filmesapi/filmes").
 			then().
 			statusCode(200).
 				and().
-			contentType(ContentType.JSON);
+			contentType(JSON);
 
 	}
 
@@ -86,11 +93,14 @@ public class FilmesAPITest {
 		given().
 			contentType(JSON).
 			body("{\"nome\" : \"Robert De Niro\"}").
+			when().
 			put("/filmesapi/atores").
 			then().
 			statusCode(201).
+			log().all().
 			and().
 			body(equalTo("Ator criado com sucesso."));
+		
 	}
 	
 	@Test
@@ -105,6 +115,15 @@ public class FilmesAPITest {
 		
 		Integer atoresDepois = get("/filmesapi/atores").then().extract().response().path("quantidade");
 		assertTrue(atoresDepois == Integer.valueOf(atoresAntes - 1));
+	}
+	
+	@Test
+	public void acessoExigeAutenticacao() {
+		RestAssured.authentication = RestAssured.DEFAULT_AUTH;
+		
+		get("/filmesapi/filmes").
+		then().
+		statusCode(401);
 	}
 
 }
