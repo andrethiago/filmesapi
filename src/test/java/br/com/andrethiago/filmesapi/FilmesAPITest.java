@@ -33,13 +33,11 @@ public class FilmesAPITest {
 
 	@Test
 	public void todosFilmesVerificaCabecalhosResposta() {
-		
 		get("/filmesapi/filmes").
 			then().
 			statusCode(200).
 				and().
 			contentType(JSON);
-
 	}
 
 	@Test
